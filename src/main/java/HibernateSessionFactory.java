@@ -6,7 +6,7 @@ public class HibernateSessionFactory{
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null)
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            sessionFactory = new Configuration().configure().addAnnotatedClass(BankAccountOperation.class).buildSessionFactory();
         return sessionFactory;
     }
 }
