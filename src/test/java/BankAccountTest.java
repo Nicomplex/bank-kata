@@ -6,16 +6,10 @@ import java.util.List;
 
 public class BankAccountTest {
     private static SessionFactory sessionFactory = null;
-    private Session session = null;
 
     @BeforeClass
     public static void initClass() {
         sessionFactory = HibernateSessionFactory.getSessionFactory();
-    }
-
-    @Before
-    public void init() {
-        this.session = sessionFactory.openSession();
     }
 
     @AfterClass
@@ -23,15 +17,11 @@ public class BankAccountTest {
         sessionFactory.close();
     }
 
-    @After
-    public void close() {
-        this.session.close();
-    }
-
     @Test
     public void should_connect_to_database() {
-        Session testSession = this.session;
+        Session testSession = sessionFactory.openSession();
         Assert.assertTrue(testSession.isOpen());
+        testSession.close();
     }
 
     @Test
