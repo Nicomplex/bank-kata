@@ -16,6 +16,11 @@ public class BankAccountOperationDAO {
         return null;
     }
 
+    public static BankAccountOperation getLastByAccountId(Integer accountId) {
+        //TODO
+        return null;
+    }
+
     public static void saveOperation(BankAccountOperation op) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tr = session.beginTransaction();

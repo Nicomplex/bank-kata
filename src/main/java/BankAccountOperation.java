@@ -1,13 +1,11 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table
 public class BankAccountOperation {
     @Id
+    @GeneratedValue
     private Integer id;
     @Column
     private Integer accountId;

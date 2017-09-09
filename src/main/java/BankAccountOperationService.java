@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class BankAccountOperationService {
     private BankAccountOperation accountOperation;
 
@@ -7,15 +5,12 @@ public class BankAccountOperationService {
         accountOperation = bankAccountOperation;
     }
 
-    public void makeDeposit(Integer amount) {
+    public BankAccountOperation makeDeposit(Integer amount) {
         //TODO
+        return null;
     }
 
-    public void makeWithdrawal(Integer amount) {
-        //TODO
-    }
-
-    public static List<BankAccountOperation> getHistory(Integer accountId) {
+    public BankAccountOperation makeWithdrawal(Integer amount) {
         //TODO
         return null;
     }
