@@ -16,7 +16,7 @@ public class BankAccountOperationDAO {
 
     public static BankAccountOperation getLastByAccountId(Integer accountId) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        Query query = session.createNamedQuery("getLastByAccountId", BankAccountOperation.class);
+        Query query = session.createNamedQuery("getByAccountId", BankAccountOperation.class);
         query.setParameter("id", accountId);
         query.setMaxResults(1);
         BankAccountOperation result = (BankAccountOperation) query.getSingleResult();

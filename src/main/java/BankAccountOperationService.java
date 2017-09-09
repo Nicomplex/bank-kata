@@ -1,13 +1,9 @@
 import java.util.Date;
+import java.util.List;
 
 public class BankAccountOperationService {
-    private BankAccountOperation accountOperation;
 
-    public BankAccountOperationService(BankAccountOperation bankAccountOperation) {
-        accountOperation = bankAccountOperation;
-    }
-
-    public BankAccountOperation makeDeposit(Integer amount) {
+    public static BankAccountOperation makeDeposit(BankAccountOperation accountOperation, Integer amount) {
         BankAccountOperation newOperation = new BankAccountOperation();
         newOperation.setAccountId(accountOperation.getAccountId());
         newOperation.setOperationAmount(amount);
@@ -17,23 +13,36 @@ public class BankAccountOperationService {
         return newOperation;
     }
 
-    public BankAccountOperation makeWithdrawal(Integer amount) {
+    public static BankAccountOperation makeWithdrawal(BankAccountOperation accountOperation, Integer amount) {
         BankAccountOperation newOperation = new BankAccountOperation();
         newOperation.setAccountId(accountOperation.getAccountId());
-        newOperation.setOperationAmount(amount);
+        newOperation.setOperationAmount(-amount);
         newOperation.setOperationDate(new Date());
         newOperation.setBalance(accountOperation.getBalance() - amount);
         BankAccountOperationDAO.saveOperation(newOperation);
         return newOperation;
     }
 
-    public String getStatementAsString() {
-        //TODO
-        return null;
+    public static String getStatementAsString(BankAccountOperation accountOperation) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Account id: ");
+        sb.append(accountOperation.getAccountId());
+        sb.append("\t | date: ");
+        sb.append(accountOperation.getOperationDate());
+        sb.append("\t | amount: ");
+        sb.append(accountOperation.getOperationAmount());
+        sb.append("\t | balance: ");
+        sb.append(accountOperation.getBalance());
+        return sb.toString();
     }
 
     public static String getHistoryAsString(Integer accountId) {
-        //TODO
-        return null;
+        StringBuilder sb = new StringBuilder();
+        List<BankAccountOperation> results = BankAccountOperationDAO.getByAccountId(accountId);
+        for (BankAccountOperation op : results) {
+            sb.append(getStatementAsString(op));
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }

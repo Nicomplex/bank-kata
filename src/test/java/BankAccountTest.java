@@ -100,8 +100,7 @@ public class BankAccountTest {
     public void should_update_operation_after_deposit() {
         BankAccountOperation op = new BankAccountOperation();
         op.setBalance(0);
-        BankAccountOperationService bas = new BankAccountOperationService(op);
-        BankAccountOperation expected = bas.makeDeposit(250);
+        BankAccountOperation expected = BankAccountOperationService.makeDeposit(op, 250);
         Assert.assertEquals(250, (long)expected.getBalance());
         Assert.assertEquals(250, (long)expected.getOperationAmount());
     }
@@ -111,10 +110,9 @@ public class BankAccountTest {
     public void should_update_operation_after_withdrawal() {
         BankAccountOperation op = new BankAccountOperation();
         op.setBalance(500);
-        BankAccountOperationService bas = new BankAccountOperationService(op);
-        BankAccountOperation expected = bas.makeWithdrawal(400);
+        BankAccountOperation expected = BankAccountOperationService.makeWithdrawal(op, 400);
         Assert.assertEquals(100, (long)expected.getBalance());
-        Assert.assertEquals(400, (long)expected.getOperationAmount());
+        Assert.assertEquals(-400, (long)expected.getOperationAmount());
     }
 
     @Test
@@ -123,8 +121,7 @@ public class BankAccountTest {
         op.setAccountId(9);
         op.setBalance(0);
         BankAccountOperationDAO.saveOperation(op);
-        BankAccountOperationService bas = new BankAccountOperationService(op);
-        bas.makeDeposit(250);
+        BankAccountOperationService.makeDeposit(op, 250);
         List expected = BankAccountOperationDAO.getByAccountId(9);
         Assert.assertEquals(2, expected.size());
     }
@@ -135,8 +132,7 @@ public class BankAccountTest {
         op.setAccountId(10);
         op.setBalance(500);
         BankAccountOperationDAO.saveOperation(op);
-        BankAccountOperationService bas = new BankAccountOperationService(op);
-        bas.makeWithdrawal(250);
+        BankAccountOperationService.makeWithdrawal(op, 250);
         List expected = BankAccountOperationDAO.getByAccountId(10);
         Assert.assertEquals(2, expected.size());
     }
