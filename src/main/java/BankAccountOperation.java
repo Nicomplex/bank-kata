@@ -3,6 +3,10 @@ import java.util.Date;
 
 @Entity
 @Table
+@NamedQueries({
+        @NamedQuery(name="getByAccountId", query = "select a from BankAccountOperation a where a.accountId = :id"),
+        @NamedQuery(name="getLastByAccountId", query = "select a from BankAccountOperation a where a.accountId = :id order by a.operationDate desc"),
+})
 public class BankAccountOperation {
     @Id
     @GeneratedValue

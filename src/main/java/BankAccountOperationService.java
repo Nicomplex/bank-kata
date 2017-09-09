@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class BankAccountOperationService {
     private BankAccountOperation accountOperation;
 
@@ -6,13 +8,23 @@ public class BankAccountOperationService {
     }
 
     public BankAccountOperation makeDeposit(Integer amount) {
-        //TODO
-        return null;
+        BankAccountOperation newOperation = new BankAccountOperation();
+        newOperation.setAccountId(accountOperation.getAccountId());
+        newOperation.setOperationAmount(amount);
+        newOperation.setOperationDate(new Date());
+        newOperation.setBalance(accountOperation.getBalance() + amount);
+        BankAccountOperationDAO.saveOperation(newOperation);
+        return newOperation;
     }
 
     public BankAccountOperation makeWithdrawal(Integer amount) {
-        //TODO
-        return null;
+        BankAccountOperation newOperation = new BankAccountOperation();
+        newOperation.setAccountId(accountOperation.getAccountId());
+        newOperation.setOperationAmount(amount);
+        newOperation.setOperationDate(new Date());
+        newOperation.setBalance(accountOperation.getBalance() - amount);
+        BankAccountOperationDAO.saveOperation(newOperation);
+        return newOperation;
     }
 
     public String getStatementAsString() {

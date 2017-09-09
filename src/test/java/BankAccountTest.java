@@ -41,15 +41,15 @@ public class BankAccountTest {
     @Test
     public void should_return_zero_operation() {
         List operationList = BankAccountOperationDAO.getByAccountId(1);
-        Assert.assertTrue(operationList == null);
+        Assert.assertTrue(operationList == null || operationList.size() == 0);
     }
 
     @Test
     public void should_create_one_operation() {
         BankAccountOperation op = new BankAccountOperation();
-        op.setId(1);
+        op.setAccountId(1);
         BankAccountOperationDAO.saveOperation(op);
-        BankAccountOperation expected = BankAccountOperationDAO.getById(1);
+        List expected = BankAccountOperationDAO.getByAccountId(1);
         Assert.assertNotNull(expected);
     }
 
@@ -89,7 +89,7 @@ public class BankAccountTest {
         BankAccountOperation op = new BankAccountOperation();
         op.setAccountId(42);
         BankAccountOperation op2 = new BankAccountOperation();
-        op.setAccountId(42);
+        op2.setAccountId(42);
         BankAccountOperationDAO.saveOperation(op);
         BankAccountOperationDAO.saveOperation(op2);
         List expected = BankAccountOperationDAO.getByAccountId(42);
